@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aslam Mohamed | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    /* ===== Global Styles ===== */
+    :root {
+      --bg-color: #0f172a;
+      --card-color: #1e293b;
+      --text-color: #e2e8f0;
+      --accent-color: #8b5cf6; /* Purple */
+      --glow-color: #06b6d4; /* Cyan */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h2.section-title {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--accent-color);
+      text-shadow: 0 0 10px var(--glow-color);
+    }
+
+    section {
+      padding: 80px 10%;
+    }
+
+    /* ===== Header ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--glow-color);
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 120px 10% 80px;
+      min-height: 100vh;
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-right: 40px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+    }
+
+    .hero-text h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--glow-color);
+    }
+
+    .hero-text p {
+      margin-bottom: 25px;
+      max-width: 600px;
+      color: #cbd5e1;
+    }
+
+    .hero-text .socials {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .hero-text .socials a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--card-color);
+      color: var(--glow-color);
+      transition: all 0.3s;
+      font-size: 1.2rem;
+    }
+
+    .hero-text .socials a:hover {
+      background: var(--accent-color);
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-color);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 30px;
+      background: linear-gradient(45deg, var(--accent-color), var(--glow-color));
+      color: white;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 25px var(--glow-color);
+      border: 4px solid var(--accent-color);
+    }
+
+    /* ===== About Section ===== */
+    .about {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .about img {
+      width: 280px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px var(--accent-color);
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+    }
+
+    /* ===== Skills Section ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--card-color);
+      padding: 20px;
+      text-align: center;
+      border-radius: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    /* ===== Projects Section ===== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--card-color);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--accent-color);
+    }
+
+    .project-card .content {
+      padding: 20px;
+    }
+
+    /* ===== Contact Section ===== */
+    .contact form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact input, .contact textarea {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: var(--card-color);
+      color: var(--text-color);
+    }
+
+    .contact button {
+      padding: 12px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(45deg, var(--accent-color), var(--glow-color));
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .contact button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px var(--accent-color);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--card-color);
+      margin-top: 50px;
+    }
+
+    /* ===== Responsive ===== */
+    @media(max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero-text {
+        padding-right: 0;
+      }
+      .hero-image {
+        margin-top: 40px;
+      }
+      .about {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="logo">Portfolio</div>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Hello, It's Me</h1>
+      <h2>Aslam Mohamed</h2>
+      <p>I'm a student at DR.N.G.P. ITECH, an active learner passionate about AI Automation, Agentic AI, SEO, Java, and Verilog. I love building AI Agents and Machine Learning projects that solve real-world problems.</p>
+      <div class="socials">
+        <a href="#">🌐</a>
+        <a href="#">🐦</a>
+        <a href="#">💼</a>
+        <a href="#">🔗</a>
+      </div>
+      <a href="#" class="btn">Download CV</a>
+    </div>
+    <div class="hero-image">
+      <img src="https://i.postimg.cc/905stJFZ/Whats-App-Image-2025-07-12-at-11-45-52-AM.jpg" alt="Aslam Mohamed">
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <div class="about">
+      <img src="https://i.postimg.cc/905stJFZ/Whats-App-Image-2025-07-12-at-11-45-52-AM.jpg" alt="Aslam Mohamed">
+      <div class="about-text">
+        <p>Hello! I’m <strong>Aslam Mohamed</strong>, a student at Dr. N.G.P. Institute of Technology. I’m an active learner who is always looking for knowledge and ways to improve my skills.</p>
+        <p>My core expertise lies in <strong>AI Automation, AI Agents, SEO, Java, and Verilog</strong>. I’ve worked on exciting projects in machine learning and agent-based AI systems, where I merge creativity with technology to solve real-world problems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section id="skills">
+    <h2 class="section-title">My Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">AI Automation</div>
+      <div class="skill-card">Agentic AI</div>
+      <div class="skill-card">Machine Learning</div>
+      <div class="skill-card">SEO</div>
+      <div class="skill-card">Java</div>
+      <div class="skill-card">Verilog</div>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="https://i.postimg.cc/nLMv0xXf/automation-aslam.jpg" alt="AI Automation">
+        <div class="content">
+          <h3>AI Automation Project</h3>
+          <p>Created automation workflows using AI to reduce manual effort and increase productivity.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://i.postimg.cc/Yq2FRFDm/upautomation-aslam.jpg" alt="AI Agents">
+        <div class="content">
+          <h3>AI Agents</h3>
+          <p>Developed autonomous agents capable of decision-making and task execution in dynamic scenarios.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://i.postimg.cc/43vtw1GV/machine-learning-aslam.jpg" alt="Machine Learning">
+        <div class="content">
+          <h3>Machine Learning</h3>
+          <p>Built ML models for predictive analytics and pattern recognition with real-world datasets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="contact" id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <form id="contact-form">
+      <input type="text" name="from_name" placeholder="Your Name" required>
+      <input type="email" name="from_email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="form-status" style="margin-top:15px; font-weight:bold; text-align:center;"></p>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>&copy; 2025 Aslam Mohamed | All Rights Reserved</p>
+  </footer>
+
+  <!-- ===== JS for EmailJS ===== -->
+  <script>
+    (function() {
+      emailjs.init("h7Ni67EgQV14iweK6"); 
+    })();
+
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      emailjs.sendForm("service_1y0ph8o", "template_zydlbgk", this)
+        .then(() => {
+          document.getElementById("form-status").innerText = "✅ Message sent successfully!";
+          this.reset();
+        }, (err) => {
+          document.getElementById("form-status").innerText = "❌ Failed to send. Try again.";
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>
