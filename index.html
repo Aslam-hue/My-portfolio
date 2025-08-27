@@ -39,8 +39,8 @@
       font-size: 2.4rem;
       text-align: center;
       margin-bottom: 50px;
-      color: var(--accent-color);
-      text-shadow: 0 0 10px var(--glow-color);
+      color: var(--accent-color); /* professional solid color */
+      font-weight: 700;
     }
 
     section {
@@ -116,31 +116,6 @@
       color: #cbd5e1;
     }
 
-    .hero-text .socials {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .hero-text .socials a {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: var(--card-color);
-      color: var(--glow-color);
-      transition: all 0.3s;
-      font-size: 1.2rem;
-    }
-
-    .hero-text .socials a:hover {
-      background: var(--accent-color);
-      color: #fff;
-      box-shadow: 0 0 15px var(--accent-color);
-    }
-
     .btn {
       display: inline-block;
       padding: 12px 30px;
@@ -179,10 +154,46 @@
       flex-wrap: wrap;
     }
 
-    .about img {
-      width: 280px;
-      border-radius: 20px;
-      box-shadow: 0 0 20px var(--accent-color);
+    .about-cube {
+      width: 220px;
+      height: 220px;
+      perspective: 1000px;
+      flex-shrink: 0;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 12s infinite linear;
+    }
+
+    .cube div {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--card-color);
+      border: 2px solid var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-color);
+      border-radius: 12px;
+    }
+
+    .cube .front  { transform: rotateY(0deg) translateZ(110px); }
+    .cube .back   { transform: rotateY(180deg) translateZ(110px); }
+    .cube .right  { transform: rotateY(90deg) translateZ(110px); }
+    .cube .left   { transform: rotateY(-90deg) translateZ(110px); }
+    .cube .top    { transform: rotateX(90deg) translateZ(110px); }
+    .cube .bottom { transform: rotateX(-90deg) translateZ(110px); }
+
+    @keyframes rotate {
+      from { transform: rotateX(0) rotateY(0); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
     }
 
     .about-text {
@@ -230,6 +241,7 @@
     .project-card img {
       width: 100%;
       display: block;
+      cursor: pointer;
     }
 
     .project-card:hover {
@@ -283,6 +295,51 @@
       margin-top: 50px;
     }
 
+    /* ===== Project Modal ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      padding-top: 80px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 85%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    .modal-caption {
+      margin: 20px auto;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-color);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--accent-color);
+    }
+
     /* ===== Responsive ===== */
     @media(max-width: 900px) {
       .hero {
@@ -298,6 +355,9 @@
       .about {
         flex-direction: column;
         text-align: center;
+      }
+      .about-cube {
+        margin-bottom: 30px;
       }
     }
   </style>
@@ -323,12 +383,6 @@
       <h1>Hello, It's Me</h1>
       <h2>Aslam Mohamed</h2>
       <p>I'm a student at DR.N.G.P. ITECH, an active learner passionate about AI Automation, Agentic AI, SEO, Java, and Verilog. I love building AI Agents and Machine Learning projects that solve real-world problems.</p>
-      <div class="socials">
-        <a href="#">🌐</a>
-        <a href="#">🐦</a>
-        <a href="#">💼</a>
-        <a href="#">🔗</a>
-      </div>
       <a href="#" class="btn">Download CV</a>
     </div>
     <div class="hero-image">
@@ -340,7 +394,16 @@
   <section id="about">
     <h2 class="section-title">About Me</h2>
     <div class="about">
-      <img src="https://i.postimg.cc/63vSGYTF/Untitled-design.png" alt="Aslam Mohamed">
+      <div class="about-cube">
+        <div class="cube">
+          <div class="front">Core</div>
+          <div class="back">Software</div>
+          <div class="right">AI Agent</div>
+          <div class="left">SEO</div>
+          <div class="top">Java</div>
+          <div class="bottom">Verilog</div>
+        </div>
+      </div>
       <div class="about-text">
         <p>Hello! I’m <strong>Aslam Mohamed</strong>, a student at Dr. N.G.P. Institute of Technology. I’m an active learner who is always looking for knowledge and ways to improve my skills.</p>
         <p>My core expertise lies in <strong>AI Automation, AI Agents, SEO, Java, and Verilog</strong>. I’ve worked on exciting projects in machine learning and agent-based AI systems, where I merge creativity with technology to solve real-world problems.</p>
@@ -366,21 +429,21 @@
     <h2 class="section-title">Projects</h2>
     <div class="project-grid">
       <div class="project-card">
-        <img src="https://i.postimg.cc/nLMv0xXf/automation-aslam.jpg" alt="AI Automation">
+        <img src="https://i.postimg.cc/nLMv0xXf/automation-aslam.jpg" alt="AI Automation" data-title="AI Automation Project">
         <div class="content">
           <h3>AI Automation Project</h3>
           <p>Created automation workflows using AI to reduce manual effort and increase productivity.</p>
         </div>
       </div>
       <div class="project-card">
-        <img src="https://i.postimg.cc/Yq2FRFDm/upautomation-aslam.jpg" alt="AI Agents">
+        <img src="https://i.postimg.cc/Yq2FRFDm/upautomation-aslam.jpg" alt="AI Agents" data-title="AI Agents">
         <div class="content">
           <h3>AI Agents</h3>
           <p>Developed autonomous agents capable of decision-making and task execution in dynamic scenarios.</p>
         </div>
       </div>
       <div class="project-card">
-        <img src="https://i.postimg.cc/43vtw1GV/machine-learning-aslam.jpg" alt="Machine Learning">
+        <img src="https://i.postimg.cc/43vtw1GV/machine-learning-aslam.jpg" alt="Machine Learning" data-title="Machine Learning">
         <div class="content">
           <h3>Machine Learning</h3>
           <p>Built ML models for predictive analytics and pattern recognition with real-world datasets.</p>
@@ -388,6 +451,13 @@
       </div>
     </div>
   </section>
+
+  <!-- 🔹 Modal Structure -->
+  <div id="imgModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
 
   <!-- ===== Contact ===== -->
   <section class="contact" id="contact">
@@ -406,8 +476,9 @@
     <p>&copy; 2025 Aslam Mohamed | All Rights Reserved</p>
   </footer>
 
-  <!-- ===== JS for EmailJS ===== -->
+  <!-- ===== JS ===== -->
   <script>
+    // EmailJS init
     (function() {
       emailjs.init("h7Ni67EgQV14iweK6"); 
     })();
@@ -423,8 +494,23 @@
           console.error(err);
         });
     });
+
+    // ===== Modal for Projects =====
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImage");
+    const captionText = document.getElementById("modalCaption");
+    const closeBtn = document.querySelector(".modal-close");
+
+    document.querySelectorAll(".project-card img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerText = img.getAttribute("data-title") || img.alt;
+      });
+    });
+
+    closeBtn.onclick = () => { modal.style.display = "none"; };
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
   </script>
 </body>
 </html>
-
-
